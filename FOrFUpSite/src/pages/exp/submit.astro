@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+import ContactCTA from '../../components/ContactCTA.astro';
+import PortfolioPreview from '../../components/PortfolioPreview.astro';
+import Hero from '../../components/Hero.astro';
+import Grid from '../../components/Grid.astro';
+import SubmitWord from "../../components/SubmitWord"
+---
+
+<BaseLayout
+	title="Submit a word"
+	description="Submit a word to be judged as being fucked or fucked up."
+>
+	<div class="stack gap-20">
+		<main class="wrapper stack gap-12">
+			<Hero
+				title="Submit a word"
+				herotext="To make this experiment work, we need your help. Submit a word below to be judged both by other humans and AI."
+				align="start"
+			/>
+			<SubmitWord client:load />
+		</main>
+	</div>
+</BaseLayout>
