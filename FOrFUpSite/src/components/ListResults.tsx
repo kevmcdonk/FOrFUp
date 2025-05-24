@@ -63,7 +63,7 @@ export default function ListResults() {
     <div>
     {responseMessage.length > 0 ? (
       <div>
-        <Counts correctCount={correctCount} wrongCount={wrongCount}></Counts>
+        
       <ul class="grid small">
       {responseMessage.length > 0 ? (
         responseMessage.map((item, index) => {
