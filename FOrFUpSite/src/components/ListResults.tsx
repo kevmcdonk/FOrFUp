@@ -56,34 +56,11 @@ guess: number;
     }
 
     async function fetchData() {
-      /*const response = await fetch("/api/ListJudgements", {
+      const response = await fetch("/api/ListJudgements", {
         method: "GET",
       });
-      const data = await response.json();*/
+      const data = await response.json();
 
-      const data = [
-          {
-              "id": "6f22568c-b7b9-4c9a-8751-4844689d19dc",
-              "dateLogged": "2025-05-24T21:55:43.74Z",
-              "humanWord": "Bananad",
-              "aiWord": null,
-              "guess": 1
-          },
-          {
-              "id": "6f22568c-b7b9-4c9a-8751-4844689d19dd",
-              "dateLogged": "2025-05-24T21:55:43.74Z",
-              "humanWord": "Bananad",
-              "aiWord": null,
-              "guess": 1
-          },
-          {
-              "id": "6f22568c-b7b9-4c9a-8751-4844689d19de",
-              "dateLogged": "2025-05-24T21:55:43.74Z",
-              "humanWord": "Bananad",
-              "aiWord": null,
-              "guess": 0
-          }
-      ];
       if (data) {
         const groupedData = groupAndCount(data);
         setResponseMessage(groupedData);
