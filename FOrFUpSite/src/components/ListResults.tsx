@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Counts from './Counts';
 
 export default function ListResults() {
-  const [responseMessage, setResponseMessage] = useState<any[]>([]);
+  const [responseMessage, setResponseMessage] = useState<Record<string, Record<number, number>>>({});
   const [correctCount, setCorrectCount] = useState<number>(0);
   const [wrongCount, setWrongCount] = useState<number>(0);
 
@@ -17,8 +17,43 @@ export default function ListResults() {
     minute: '2-digit',
     second: '2-digit',
   };
+  
+type Entry = {
+   id: string;
+dateLogged: string;
+humanWord: string | null;
+aiWord: string | null;
+guess: number;
+};
+
 
   useEffect(() => {
+    
+    function groupAndCount(data: Entry[]) {
+    const result: Record<string, Record<number, number>> = {};
+
+    for (const item of data) {
+      const guess = item.guess;
+      const word = item.humanWord;
+
+      if (!word) continue;
+
+      if (!result[word]) {
+        result[word] = [0, 0];
+      }
+      let fdCount = result[word][0];
+      let fdupCount = result[word][1];
+
+      if (guess == 0) {
+        fdCount++;
+      }
+      else if (guess == 1) {
+        fdupCount++;
+      }
+      result[word] = [fdCount, fdupCount];
+    }
+    return result;
+
     async function fetchData() {
       /*const response = await fetch("/api/ListJudgements", {
         method: "GET",
@@ -32,26 +67,25 @@ export default function ListResults() {
               "humanWord": "Bananad",
               "aiWord": null,
               "guess": 1
+          },
+          {
+              "id": "6f22568c-b7b9-4c9a-8751-4844689d19dd",
+              "dateLogged": "2025-05-24T21:55:43.74Z",
+              "humanWord": "Bananad",
+              "aiWord": null,
+              "guess": 1
+          },
+          {
+              "id": "6f22568c-b7b9-4c9a-8751-4844689d19de",
+              "dateLogged": "2025-05-24T21:55:43.74Z",
+              "humanWord": "Bananad",
+              "aiWord": null,
+              "guess": 0
           }
       ];
       if (data) {
-        setResponseMessage(data);
-
-        // Count correct and wrong guesses
-        const counts = data.reduce(
-          (acc: { correct: number; wrong: number }, item: any) => {
-            if (item.guess === 0) {
-              acc.correct += 1;
-            } else if (item.guess === 1) {
-              acc.wrong += 1;
-            }
-            return acc;
-          },
-          { correct: 0, wrong: 0 }
-        );
-
-        setCorrectCount(counts.correct);
-        setWrongCount(counts.wrong);
+        const groupedData = groupAndCount(data);
+        setResponseMessage(groupedData);
       }
     }
 
@@ -61,32 +95,25 @@ export default function ListResults() {
 
   return (
     <div>
-    {responseMessage.length > 0 ? (
+    {Object.keys(responseMessage).length > 0 ? (
       <div>
         
       <ul class="grid small">
-      {responseMessage.length > 0 ? (
-        responseMessage.map((item, index) => {
-          
-          if (item.humanWord.startsWith("\"")) {
-            item.humanWord = item.humanWord.substring(1, item.humanWord.length - 1);
-          }
-          return (
-            <li key={index}>
-              <div>{new Date(item.dateLogged).toLocaleDateString('en-gb', options)}</div>
-              <h3>{item.humanWord}</h3>
-              <div className={item.guess == 0 ? "pill-selected": "pill"}>
-                <slot>Fucked</slot>
-              </div>
-              <div className={"centred"}>
-                vs
-              </div>
-              <div className={item.guess == 0 ? "pill": "pill-selected"}>
-                <slot>Fucked up</slot>
-              </div>
-            </li>
-          );
-        })
+      {Object.keys(responseMessage).length > 0 ? (
+        Object.entries(responseMessage).map(([word, counts], index) => (
+          <li key={index}>
+            <h3>{word}</h3>
+            <div className="pill-selected">
+              Fucked: {counts[0]}
+            </div>
+            <div className="centred">
+              vs
+            </div>
+            <div className="pill-selected">
+              Fucked up: {counts[1]}
+            </div>
+          </li>
+        ))
       ) : (
         <li>No results found</li>
       )}
