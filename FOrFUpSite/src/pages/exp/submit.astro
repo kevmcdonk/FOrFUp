@@ -8,6 +8,7 @@ import PortfolioPreview from '../../components/PortfolioPreview.astro';
 import Hero from '../../components/Hero.astro';
 import Grid from '../../components/Grid.astro';
 import SubmitWord from "../../components/SubmitWord"
+import ListWords from "../../components/ListWords"
 ---
 
 <BaseLayout
@@ -17,11 +18,23 @@ import SubmitWord from "../../components/SubmitWord"
 	<div class="stack gap-20">
 		<main class="wrapper stack gap-12">
 			<Hero
-				title="Submit a word"
-				herotext="To make this experiment work, we need your help. Submit a word below to be judged both by other humans and AI."
+				title="Get involved"
+				herotext="What you reckon? Does each word sound more like making the beast with two backs (aka fucked) or shots till dawn (fucked up)? Then add another work if you don't see it there."
 				align="start"
 			/>
-			<SubmitWord client:load />
+			
 		</main>
 	</div>
+
+	<section class="box skills">
+	<div class="stack gap-2 lg:gap-8">
+		<h2>Take your pick</h2>
+		<ListWords client:load />
+	</div>
+	<div class="stack gap-2 lg:gap-4">
+		<h2>Add to the chaos</h2>
+		<SubmitWord client:load />
+	</div>
+</section>
+
 </BaseLayout>

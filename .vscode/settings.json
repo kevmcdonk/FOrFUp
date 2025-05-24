@@ -1,10 +1,7 @@
 {
-    "azureFunctions.deploySubpath": "api",
-    "azureFunctions.postDeployTask": "npm install (functions)",
-    "azureFunctions.projectLanguage": "TypeScript",
+    "azureFunctions.deploySubpath": "FOrFUpSite\\api/bin/Release/net8.0/publish",
+    "azureFunctions.projectLanguage": "C#",
     "azureFunctions.projectRuntime": "~4",
     "debug.internalConsoleOptions": "neverOpen",
-    "azureFunctions.preDeployTask": "npm prune (functions)",
-    "azureFunctions.projectLanguageModel": 4,
-    "azureFunctions.projectSubpath": "Mcd79MinimalTuringSite\\api"
+    "azureFunctions.preDeployTask": "publish (functions)"
 }

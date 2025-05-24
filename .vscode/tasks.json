@@ -2,24 +2,13 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"type": "func",
-			"label": "func: host start",
-			"command": "host start",
-			"problemMatcher": "$func-node-watch",
-			"isBackground": true,
-			"dependsOn": "npm watch (functions)",
-			"options": {
-				"cwd": "${workspaceFolder}/Mcd79MinimalTuringSite/api"
-			}
-		},
-		{
 			"type": "shell",
 			"label": "npm build (functions)",
 			"command": "npm run build",
 			"dependsOn": "npm clean (functions)",
 			"problemMatcher": "$tsc",
 			"options": {
-				"cwd": "${workspaceFolder}/Mcd79MinimalTuringSite/api"
+				"cwd": "${workspaceFolder}/FOrFUpSite/api"
 			}
 		},
 		{
@@ -34,7 +23,7 @@
 			},
 			"isBackground": true,
 			"options": {
-				"cwd": "${workspaceFolder}/Mcd79MinimalTuringSite/api"
+				"cwd": "${workspaceFolder}/FOrFUpSite/api"
 			}
 		},
 		{
@@ -42,7 +31,7 @@
 			"label": "npm install (functions)",
 			"command": "npm install",
 			"options": {
-				"cwd": "${workspaceFolder}/Mcd79MinimalTuringSite/api"
+				"cwd": "${workspaceFolder}/FOrFUpSite/api"
 			}
 		},
 		{
@@ -52,7 +41,7 @@
 			"dependsOn": "npm build (functions)",
 			"problemMatcher": [],
 			"options": {
-				"cwd": "${workspaceFolder}/Mcd79MinimalTuringSite/api"
+				"cwd": "${workspaceFolder}/FOrFUpSite/api"
 			}
 		},
 		{
@@ -61,8 +50,84 @@
 			"command": "npm run clean",
 			"dependsOn": "npm install (functions)",
 			"options": {
-				"cwd": "${workspaceFolder}/Mcd79MinimalTuringSite/api"
+				"cwd": "${workspaceFolder}/FOrFUpSite/api"
 			}
+		},
+		{
+			"label": "clean (functions)",
+			"command": "dotnet",
+			"args": [
+				"clean",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"type": "process",
+			"problemMatcher": "$msCompile",
+			"options": {
+				"cwd": "${workspaceFolder}/FOrFUpSite\\api"
+			}
+		},
+		{
+			"label": "build (functions)",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"type": "process",
+			"dependsOn": "clean (functions)",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": "$msCompile",
+			"options": {
+				"cwd": "${workspaceFolder}/FOrFUpSite\\api"
+			}
+		},
+		{
+			"label": "clean release (functions)",
+			"command": "dotnet",
+			"args": [
+				"clean",
+				"--configuration",
+				"Release",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"type": "process",
+			"problemMatcher": "$msCompile",
+			"options": {
+				"cwd": "${workspaceFolder}/FOrFUpSite\\api"
+			}
+		},
+		{
+			"label": "publish (functions)",
+			"command": "dotnet",
+			"args": [
+				"publish",
+				"--configuration",
+				"Release",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"type": "process",
+			"dependsOn": "clean release (functions)",
+			"problemMatcher": "$msCompile",
+			"options": {
+				"cwd": "${workspaceFolder}/FOrFUpSite\\api"
+			}
+		},
+		{
+			"type": "func",
+			"dependsOn": "build (functions)",
+			"options": {
+				"cwd": "${workspaceFolder}/FOrFUpSite\\api/bin/Debug/net8.0"
+			},
+			"command": "host start",
+			"isBackground": true,
+			"problemMatcher": "$func-dotnet-watch"
 		}
 	]
 }

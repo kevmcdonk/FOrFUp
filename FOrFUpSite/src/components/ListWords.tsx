@@ -11,10 +11,12 @@ export default function ListWords() {
 
   useEffect(() => {
     async function fetchData() {
+      
       const response = await fetch("/api/ListResults", {
         method: "GET",
       });
       const data = await response.json();
+      
       if (data) {
         data.forEach((experiment: any) => {
           experiment.isHumanFirst = Math.random() >= 0.5;
@@ -64,55 +66,35 @@ export default function ListWords() {
             if (item.humanWord.startsWith("\"")) {
               item.humanWord = item.humanWord.substring(1, item.humanWord.length - 1);
             }
-
-            if (item.aiWord.startsWith("\"")) {
-              item.aiWord = item.aiWord.substring(1, item.aiWord.length - 1);
-            }
             
-            if (hoveredItemId == "index" + index.toString() + "1") {
-              itemOneClassName = "pill-selected";
-            } else if (selectedItemId == "selectedIndex" + index.toString() + "1") {
-              itemOneClassName = "pill-picked";
-            }
-            else {
-              itemOneClassName = "pill";
-            }
-
-            if (hoveredItemId == "index" + index.toString() + "2") {
-              itemTwoClassName = "pill-selected";
-            } else if (selectedItemId == "selectedIndex" + index.toString() + "2") {
-              itemTwoClassName = "pill-picked";
-            }
-            else {
-              itemTwoClassName = "pill";
-            }
             return (
               <li key={index}>
+                <h2>{item.humanWord}</h2>
                 <div 
                   className={itemOneClassName}
                   onMouseOver={() => setHoveredItemId("index" + index.toString() + "1")}
                   onMouseOut={() => setHoveredItemId("not set")}
                   onClick={(e) => {
                     setSelectedItemId("selectedIndex" + index.toString() + "1");
-                    item.isHumanFirst ? item.guessSuccess = "Correct, you spotted the human word" : item.guessSuccess = "Incorrect, that was the AI Word";
+                    item.guessSuccess = "Get fucked";
                     submit(e, item, item.isHumanFirst ? "Human" : "AI");
                   }}
                 >
-                  <slot>{item.isHumanFirst ? item.humanWord : item.aiWord}</slot>
+                  <slot>Fucked</slot>
                 </div>
                 <div className={"centred"}>
-                  vs
+                  or
                 </div>
                 <div 
                   className={itemTwoClassName}
                   onMouseOver={() => setHoveredItemId("index" + index.toString() + "2")}
                   onMouseOut={() => setHoveredItemId("not set")}
                   onClick={(e) => {
-                    item.isHumanFirst ? item.guessSuccess = "Incorrect, that was the AI Word" : item.guessSuccess = "Correct, you spotted the human word";
+                    item.guessSuccess = "Get fucked up";
                     submit(e, item, item.isHumanFirst ? "AI" : "Human");
                   }}
                 >
-                  <slot>{item.isHumanFirst ? item.aiWord : item.humanWord}</slot>
+                  <slot>Fucked up</slot>
                 </div>
                 <div>{item.guessSuccess}</div>
               </li>

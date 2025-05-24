@@ -27,7 +27,7 @@ export default function SubmitWord() {
       </label>
       <br/>
       <div class="centred">
-        <button class="pill-send">Send</button>
+        <button class="pill-send">Add your word</button>
       </div>
 
       {responseMessage && <p>{responseMessage}</p>}
