@@ -53,6 +53,7 @@ guess: number;
       result[word] = [fdCount, fdupCount];
     }
     return result;
+    }
 
     async function fetchData() {
       /*const response = await fetch("/api/ListJudgements", {
