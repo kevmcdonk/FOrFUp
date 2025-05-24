@@ -20,10 +20,20 @@ export default function ListResults() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("/api/ListJudgements", {
+      /*const response = await fetch("/api/ListJudgements", {
         method: "GET",
       });
-      const data = await response.json();
+      const data = await response.json();*/
+
+      const data = [
+          {
+              "id": "6f22568c-b7b9-4c9a-8751-4844689d19dc",
+              "dateLogged": "2025-05-24T21:55:43.74Z",
+              "humanWord": "Bananad",
+              "aiWord": null,
+              "guess": 1
+          }
+      ];
       if (data) {
         setResponseMessage(data);
 
@@ -61,21 +71,18 @@ export default function ListResults() {
           if (item.humanWord.startsWith("\"")) {
             item.humanWord = item.humanWord.substring(1, item.humanWord.length - 1);
           }
-
-          if (item.aiWord.startsWith("\"")) {
-            item.aiWord = item.aiWord.substring(1, item.aiWord.length - 1);
-          }
           return (
             <li key={index}>
               <div>{new Date(item.dateLogged).toLocaleDateString('en-gb', options)}</div>
+              <h3>{item.humanWord}</h3>
               <div className={item.guess == 0 ? "pill-selected": "pill"}>
-                <slot>{item.humanWord}</slot>
+                <slot>Fucked</slot>
               </div>
               <div className={"centred"}>
                 vs
               </div>
               <div className={item.guess == 0 ? "pill": "pill-selected"}>
-                <slot>{item.aiWord}</slot>
+                <slot>Fucked up</slot>
               </div>
             </li>
           );
